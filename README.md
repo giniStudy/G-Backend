@@ -5,6 +5,6 @@
 
 | 언어 및 툴 | 버전 |
 |--|--|
-| Framework | Spring Boot 4 |
+| Framework | Spring Boot |
 | Gradle | Buildship Gradle Integration 3.0 |
 | Java | jdk-11.0.15 |
