@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    default: local
+  application:
+    name: joylog
+
+management:
+  endpoints:
+    web:
+      base-path: /api
+      path-mapping:
+        health: healthcheck
+  endpoint:
+    health:
+      show-details: always
