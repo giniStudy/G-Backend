@@ -11,6 +11,6 @@ EXPOSE 80 80
 ENTRYPOINT [                                                \
     "java",                                                 \
     "-jar",                                                 \
-    "-Dspring.profiles=dev", \
+    "-Dspring.profiles.active=dev", \
     "build/libs/joylog-blog-0.0.1-SNAPSHOT.jar"              \
 ]
