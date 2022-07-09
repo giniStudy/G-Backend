@@ -34,18 +34,22 @@ jobs:
           # override.value: 'from deploy.yaml' <-- 이렇게 사용해도 주입이 된다.
 
       - name: Grant execute permission for gradlew
-        run: chmod +x ./joylog-blog/gradlew
+        run: chmod +x ./gradlew
+        working-directory: joylog-blog      
         shell: bash
 
         # [2]
       - name: Build with Gradle
-        run: ./joylog-blog/gradlew build
+        run: ./gradlew build
         shell: bash
+        working-directory: joylog-blog
 
         # [3]
       - name: Make zip file
         run: zip -r ./$GITHUB_SHA.zip .
+        working-directory: joylog-blog
         shell: bash
+        
 
         # [4]
       - name: Configure AWS credentials
