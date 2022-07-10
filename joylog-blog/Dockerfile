@@ -1,8 +1,7 @@
-FROM gradle:7.4-jdk11-alpine
-WORKDIR /app
-COPY ./ ./
-RUN gradle clean build
-#CMD java -jar build/libs/*.jar -Dspring.properties=prod
+FROM thingsboard/openjdk11:latest
+ARG JAR_FILE=build/libs/joylog-blog-0.0.1-SNAPSHOT.jar
+COPY ${JAR_FILE} joylog.jar
+#CMD java -jar joylog.jar -Dspring.properties=prod
 
 EXPOSE 80 80
 
@@ -12,5 +11,5 @@ ENTRYPOINT [                                                \
     "java",                                                 \
     "-jar",                                                 \
     "-Dspring.profiles.active=dev", \
-    "build/libs/joylog-blog-0.0.1-SNAPSHOT.jar"              \
+    "/joylog.jar"              \
 ]
