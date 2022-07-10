@@ -16,18 +16,21 @@ public class PostController {
 	
 	@Autowired
 	PostService postService;
-	
+	/*
 	@GetMapping("")
 	public PostEntity test() {
 		return postService.createPost("test!!!");
 	}
-	
+	*/
 	@GetMapping("/all")
 	public List<PostEntity> findAll() {
 		return postService.findAll();
 	}
-	
-	
+
+	@GetMapping("")
+	public String test() {
+		return "a";
+	}
 	
 
 }

@@ -2,11 +2,12 @@ package kr.co.joylog.blog.domain.crawling;
 
 import javax.persistence.*;
 
+import lombok.Getter;
 import org.hibernate.annotations.Fetch;
 
 @Entity
 @Table(name = "crawling")
-
+@Getter
 public class CrawlingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

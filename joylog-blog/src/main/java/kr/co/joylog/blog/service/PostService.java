@@ -17,7 +17,7 @@ public class PostService {
 	public PostService(PostRepository postRepository) {
 		this.postRepository = postRepository;
 	}
-	
+	/*
 	public PostEntity createPost(String title) {
 		PostEntity newPost = new PostEntity();
 		newPost.setTitle("test1");
@@ -26,7 +26,7 @@ public class PostService {
 		System.out.println(newPost.getSeq());
 		System.out.println(newPost.getUserSeq());
 		return newPost;
-	}
+	}*/
 	
 	public List<PostEntity> findAll() {
 		return postRepository.findAll();
