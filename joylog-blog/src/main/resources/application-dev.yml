@@ -4,7 +4,7 @@ spring:
       on-profile: dev
   datasource:
     url: ${url}
-    username: ${username}
+    username: ${username}url?
     password: ${password}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
