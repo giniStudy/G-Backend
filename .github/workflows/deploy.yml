@@ -11,9 +11,8 @@ env:
   CODE_DEPLOY_APPLICATION_NAME: joy-code-deploy
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: joy-server
   db.url: ${{secrets.DB_URL}}
-  db:
-    password: ${{secrets.DB_PASSWORD}}
-    user: ${{secrets.DB_USERNAME}}
+  db.password: ${{secrets.DB_PASSWORD}}
+  db.user: ${{secrets.DB_USERNAME}}
 
 jobs:
   build:
