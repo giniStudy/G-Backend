@@ -31,7 +31,7 @@ jobs:
           files: ${{ env.RESOURCE_PATH }}
         env:
           override.value: ${{ secrets.DI_FROM_SECRET }}
-          spring.datasource.url.: ${{secrets.DB_FULL_URL}}
+          spring.datasource.url.: ${{secrets.DB_URL}}
           spring.datasource.username: ${{secrets.DB_PASSWORD}}
           spring.datasource.password: ${{secrets.DB_USERNAME}}
       # override.value: 'from deploy.yaml' <-- 이렇게 사용해도 주입이 된다.
