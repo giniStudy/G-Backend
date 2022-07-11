@@ -7,12 +7,9 @@ on:
 
 env:
   S3_BUCKET_NAME: joycode
-  RESOURCE_PATH: ./src/main/resources/application.yml
+  RESOURCE_PATH: ./joylog-blog/src/main/resources/application-dev.yml
   CODE_DEPLOY_APPLICATION_NAME: joy-code-deploy
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: joy-server
-  db.url: ${{secrets.DB_URL}}
-  db.password: ${{secrets.DB_PASSWORD}}
-  db.user: ${{secrets.DB_USERNAME}}
 
 jobs:
   build:
@@ -34,7 +31,7 @@ jobs:
           files: ${{ env.RESOURCE_PATH }}
         env:
           override.value: ${{ secrets.DI_FROM_SECRET }}
-          db.url: ${{secrets.DB_URL}}
+          db.url.: ${{secrets.DB_URL}}
           db.password: ${{secrets.DB_PASSWORD}}
           db.user: ${{secrets.DB_USERNAME}}
       # override.value: 'from deploy.yaml' <-- 이렇게 사용해도 주입이 된다.
