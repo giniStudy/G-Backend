@@ -26,11 +26,4 @@ public class PostController {
 	public List<PostEntity> findAll() {
 		return postService.findAll();
 	}
-
-	@GetMapping("")
-	public String test() {
-		return "a";
-	}
-	
-
 }
