@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.joylog.blog.domain.post.PostEntity;
-import kr.co.joylog.blog.domain.post.PostRepository;
 import kr.co.joylog.blog.service.PostService;
 
 @RestController
@@ -26,11 +25,4 @@ public class PostController {
 	public List<PostEntity> findAll() {
 		return postService.findAll();
 	}
-
-	@GetMapping("")
-	public String test() {
-		return "a";
-	}
-	
-
 }
