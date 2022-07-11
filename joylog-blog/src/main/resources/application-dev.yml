@@ -3,13 +3,10 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:mysql://${db.url}:3306/joylog_blog?characterEncoding=utf8
-    username: ${db.user}
-    password: ${db.password}
+    url: ${url}
+    username: ${username}
+    password: ${password}
     driver-class-name: com.mysql.cj.jdbc.Driver
-#  jpa:
-#    hibernate:
-#      ddl-auto: validate
 
 server:
   port: 80
