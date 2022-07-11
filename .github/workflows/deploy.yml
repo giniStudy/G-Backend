@@ -10,6 +10,10 @@ env:
   RESOURCE_PATH: ./src/main/resources/application.yaml
   CODE_DEPLOY_APPLICATION_NAME: joy-code-deploy
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: joy-server
+  db.url: ${{secrets.DB_URL}}
+  db:
+    password: ${{secrets.DB_PASSWORD}}
+    user: ${{secrets.DB_USERNAME}}
 
 jobs:
   build:
@@ -23,19 +27,18 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-        
-        # [1]
-#      - name: Set yaml file 
-#        uses: microsoft/variable-substitution@v1
-#        with:
-#          files: ${{ env.RESOURCE_PATH }} 
-#        env:
-#          override.value: ${{ secrets.DI_FROM_SECRET }} 
-          # override.value: 'from deploy.yaml' <-- 이렇게 사용해도 주입이 된다.
 
+        # [1]
+      #      - name: Set yaml file
+      #        uses: microsoft/variable-substitution@v1
+      #        with:
+      #          files: ${{ env.RESOURCE_PATH }}
+      #        env:
+      #          override.value: ${{ secrets.DI_FROM_SECRET }}
+      # override.value: 'from deploy.yaml' <-- 이렇게 사용해도 주입이 된다.
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
-        working-directory: joylog-blog      
+        working-directory: joylog-blog
         shell: bash
 
         # [2]
@@ -49,24 +52,23 @@ jobs:
         run: zip -r ./$GITHUB_SHA.zip .
         working-directory: joylog-blog
         shell: bash
-        
 
         # [4]
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1        
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
-          aws-region: ${{ secrets.AWS_REGION }} 
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
         # [5]
       - name: Upload to S3
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
-        working-directory: joylog-blog        
+        working-directory: joylog-blog
 
         # [6]
       - name: Code Deploy
-        run: | 
+        run: |
           aws deploy create-deployment \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
