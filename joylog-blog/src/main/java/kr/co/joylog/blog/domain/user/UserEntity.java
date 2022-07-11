@@ -2,11 +2,14 @@ package kr.co.joylog.blog.domain.user;
 
 import javax.persistence.*;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 
 @Entity
 @Table(name = "user")
-
+@Getter
+@Setter
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,15 +18,15 @@ public class UserEntity {
     private String id;
     private String pw;
     private String name;
-    private String nick_name;
+    private String nickName;
     private String email;
     private String phon;
     private String level;
     private String repository;
-    private String login_state;
-    private String github_name;
-    private String image_path;
-    private String create_datetime;
+    private String loginState;
+    private String githubName;
+    private String imagePath;
+    private String createDatetime;
 
     
     
