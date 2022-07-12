@@ -1,1 +1,0 @@
-SELECT * FROM joylog_blog.tags;

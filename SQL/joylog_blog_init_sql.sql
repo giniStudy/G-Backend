@@ -43,14 +43,14 @@ CREATE TABLE `joylog_blog`.`post` (
   PRIMARY KEY (`seq`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COMMENT='게시글 테이블';
 
-CREATE TABLE `joylog_blog`.`post_tags_relation` (
+CREATE TABLE `joylog_blog`.`post_tag_relation` (
   `seq` int NOT NULL AUTO_INCREMENT,
   `post_seq` int NOT NULL COMMENT 'post 테이블의 seq',
   `tag_seq` int NOT NULL COMMENT 'tag 테이블의 seq',
   PRIMARY KEY (`seq`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='post 테이블과 tags 테이블의 관계 테이블';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='post 테이블과 tag 테이블의 관계 테이블';
 
-CREATE TABLE `joylog_blog`.`tags` (
+CREATE TABLE `joylog_blog`.`tag` (
   `seq` int NOT NULL AUTO_INCREMENT,
   `tag` varchar(500) NOT NULL COMMENT '태그 이름',
   PRIMARY KEY (`seq`)
