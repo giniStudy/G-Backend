@@ -2,8 +2,8 @@ package kr.co.joylog.blog.dto.post;
 
 import io.micrometer.core.instrument.Tags;
 import kr.co.joylog.blog.domain.post.PostEntity;
-import kr.co.joylog.blog.domain.postTagsRelation.PostTagsRelationEntity;
-import kr.co.joylog.blog.domain.tags.TagsEntity;
+import kr.co.joylog.blog.domain.postTagRelation.PostTagRelationEntity;
+import kr.co.joylog.blog.domain.tag.TagEntity;
 import kr.co.joylog.blog.dto.tags.Tag;
 
 import lombok.AllArgsConstructor;

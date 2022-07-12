@@ -1,4 +1,4 @@
-package kr.co.joylog.blog.domain.tags;
+package kr.co.joylog.blog.domain.tag;
 
 import javax.persistence.*;
 
@@ -7,10 +7,10 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 
 @Entity
-@Table(name = "tags")
+@Table(name = "tag")
 @Getter
 @Setter
-public class TagsEntity {
+public class TagEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer seq;

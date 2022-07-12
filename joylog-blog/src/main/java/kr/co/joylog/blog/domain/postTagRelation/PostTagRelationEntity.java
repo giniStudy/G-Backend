@@ -1,10 +1,10 @@
-package kr.co.joylog.blog.domain.postTagsRelation;
+package kr.co.joylog.blog.domain.postTagRelation;
 
 import javax.persistence.*;
 
 import kr.co.joylog.blog.domain.post.PostEntity;
-import kr.co.joylog.blog.domain.tags.TagsEntity;
-import kr.co.joylog.blog.domain.tags.TagsRepository;
+import kr.co.joylog.blog.domain.tag.TagEntity;
+import kr.co.joylog.blog.domain.tag.TagRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
@@ -12,10 +12,10 @@ import org.hibernate.annotations.Fetch;
 import java.util.List;
 
 @Entity
-@Table(name = "post_tags_relation")
+@Table(name = "post_tag_relation")
 @Getter
 @Setter
-public class PostTagsRelationEntity {
+public class PostTagRelationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer seq;
@@ -26,7 +26,7 @@ public class PostTagsRelationEntity {
 
     @ManyToOne
     @JoinColumn(name = "tag_seq")
-    private TagsEntity tag;
+    private TagEntity tag;
     
     
     

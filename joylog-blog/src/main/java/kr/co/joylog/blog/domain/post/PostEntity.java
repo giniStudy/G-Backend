@@ -3,8 +3,8 @@ package kr.co.joylog.blog.domain.post;
 import javax.persistence.*;
 import javax.print.attribute.standard.MediaSize;
 
-import kr.co.joylog.blog.domain.postTagsRelation.PostTagsRelationEntity;
-import kr.co.joylog.blog.domain.tags.TagsEntity;
+import kr.co.joylog.blog.domain.postTagRelation.PostTagRelationEntity;
+import kr.co.joylog.blog.domain.tag.TagEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
@@ -29,5 +29,5 @@ public class PostEntity {
     private String  level;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
-    private List<PostTagsRelationEntity> postTagsRelation;
+    private List<PostTagRelationEntity> postTagsRelation;
 }
