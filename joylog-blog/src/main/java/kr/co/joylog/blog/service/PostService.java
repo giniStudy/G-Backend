@@ -1,7 +1,11 @@
 package kr.co.joylog.blog.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import kr.co.joylog.blog.dto.post.Post;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +31,19 @@ public class PostService {
 		System.out.println(newPost.getUserSeq());
 		return newPost;
 	}*/
-	
+
 	public List<PostEntity> findAll() {
 		return postRepository.findAll();
 	}
+
+	public List<Post> getPostList(int page, int size)
+	{
+		List<Post> postList = new ArrayList<Post>();
+
+		return postRepository.findAll(PageRequest.of(page, size))
+				.get()
+				.map(Post::of)
+				.collect(Collectors.toList());
+	}
+
 }
