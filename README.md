@@ -10,3 +10,5 @@
 | Java | jdk-11.0.15 |
 | MySQL | mysql-8.0.29-macos12-arm64 |
 
+## document
+ex) http://localhost:8080/swagger-ui/index.html
