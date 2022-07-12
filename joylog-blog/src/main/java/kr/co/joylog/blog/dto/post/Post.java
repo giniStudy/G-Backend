@@ -2,7 +2,9 @@ package kr.co.joylog.blog.dto.post;
 
 import io.micrometer.core.instrument.Tags;
 import kr.co.joylog.blog.domain.post.PostEntity;
+import kr.co.joylog.blog.domain.postTagsRelation.PostTagsRelationEntity;
 import kr.co.joylog.blog.domain.tags.TagsEntity;
+import kr.co.joylog.blog.dto.tags.Tag;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,10 +30,11 @@ public class Post {
                 .state(postEntity.getState())
                 .lastUpdateDatetime(postEntity.getLastUpdateDatetime())
                 .createDatetime(postEntity.getCreateDatetime())
-                .tags(postEntity.getPostTagsRelation().stream().map(r -> r.getTag().getTag()).collect(Collectors.toList()))
+                
+                .tags(postEntity.getPostTagsRelation().stream().map(r -> r.getTag()).map(Tag::of).collect(Collectors.toList()))
                 .build();
     }
-
+    
     private Integer seq;
     private Integer userSeq;
     private String title;
@@ -40,5 +43,5 @@ public class Post {
     private LocalDateTime lastUpdateDatetime;
     private LocalDateTime createDatetime;
 
-    private List<String> tags;
+    private List<Tag> tags;
 }
