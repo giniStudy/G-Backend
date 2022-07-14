@@ -15,16 +15,5 @@ public class TagEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer seq;
     private String  tag;
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-	
-    
 }
