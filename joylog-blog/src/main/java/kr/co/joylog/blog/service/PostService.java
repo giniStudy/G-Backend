@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import kr.co.joylog.blog.dto.post.Post;
+import kr.co.joylog.blog.dto.util.PageResponse;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,14 +38,16 @@ public class PostService {
 		return postRepository.findAll();
 	}
 
-	public List<Post> getPostList(int page, int size)
+	public PageResponse<Post> getPostList(int page, int size)
 	{
-		List<Post> postList = new ArrayList<Post>();
+		Page<PostEntity> pagePost =postRepository.findAll(PageRequest.of(page, size));
 
-		return postRepository.findAll(PageRequest.of(page, size))
-				.get()
-				.map(Post::of)
-				.collect(Collectors.toList());
+		return PageResponse.<Post>builder()
+				.list(pagePost.get().map(Post::of).collect(Collectors.toList()))
+				.maxPage(pagePost.getTotalPages())
+				.viewSize(size)
+				.totalCount(pagePost.getTotalElements())
+				.build();
 	}
 
 }
