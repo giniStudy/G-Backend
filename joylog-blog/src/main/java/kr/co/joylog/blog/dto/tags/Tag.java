@@ -14,7 +14,6 @@ public class Tag {
 
     public static Tag of(TagEntity tagsEntity){
         return Tag.builder()
-                .seq(tagsEntity.getSeq())
                 .tag(tagsEntity.getTag())
                 .build();
     }

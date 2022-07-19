@@ -31,7 +31,7 @@ public class Post {
                 .lastUpdateDatetime(postEntity.getLastUpdateDatetime())
                 .createDatetime(postEntity.getCreateDatetime())
                 
-                .tags(postEntity.getPostTagsRelation().stream().map(r -> r.getTag()).map(Tag::of).collect(Collectors.toList()))
+                .tag(postEntity.getPostTagsRelation().stream().map(r -> r.getTag().getTag()).collect(Collectors.toList()))
                 .build();
     }
     
@@ -43,5 +43,5 @@ public class Post {
     private LocalDateTime lastUpdateDatetime;
     private LocalDateTime createDatetime;
 
-    private List<Tag> tags;
+    private List<String> tag;
 }
