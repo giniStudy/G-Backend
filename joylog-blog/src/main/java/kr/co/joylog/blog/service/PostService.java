@@ -50,4 +50,8 @@ public class PostService {
 				.build();
 	}
 
+	public Post getPostDetail(int seq)
+	{
+		return Post.of(postRepository.getById(seq));
+	}
 }

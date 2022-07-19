@@ -39,4 +39,12 @@ public class PostController {
         return postService.getPostList(page, size);
     }
 
+    @GetMapping("/postdetail")
+    public Post getPostDetail(
+            @RequestParam(defaultValue = "0", required = false) int seq) {
+
+        return postService.getPostDetail(seq);
+    }
+
+
 }
