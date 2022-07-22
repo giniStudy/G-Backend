@@ -18,4 +18,4 @@ docker build -t test:auto .
 echo docker run build -p 8080:80 -d --name joylog test:auto
 
 
-docker run -p 8080:8080 -d --name joylog test:auto
+docker run -p 8080:80 -d --name joylog test:auto
