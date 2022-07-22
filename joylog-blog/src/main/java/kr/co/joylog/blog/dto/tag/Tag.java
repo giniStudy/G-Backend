@@ -1,4 +1,4 @@
-package kr.co.joylog.blog.dto.tags;
+package kr.co.joylog.blog.dto.tag;
 
 import kr.co.joylog.blog.domain.tag.TagEntity;
 import lombok.AllArgsConstructor;
