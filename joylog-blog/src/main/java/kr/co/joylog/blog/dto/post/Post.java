@@ -30,6 +30,7 @@ public class Post {
                 .state(postEntity.getState())
                 .lastUpdateDatetime(postEntity.getLastUpdateDatetime())
                 .createDatetime(postEntity.getCreateDatetime())
+                .level(postEntity.getLevel())
                 
                 .tag(postEntity.getPostTagsRelation().stream().map(r -> r.getTag().getTag()).collect(Collectors.toList()))
                 .build();
@@ -42,6 +43,7 @@ public class Post {
     private String state;
     private LocalDateTime lastUpdateDatetime;
     private LocalDateTime createDatetime;
+    private String level;
 
     private List<String> tag;
 }
