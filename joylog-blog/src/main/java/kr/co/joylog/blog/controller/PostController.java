@@ -3,12 +3,13 @@ package kr.co.joylog.blog.controller;
 
 import java.util.List;
 
+import kr.co.joylog.blog.domain.tag.TagEntity;
 import kr.co.joylog.blog.dto.post.Post;
+import kr.co.joylog.blog.dto.post.ReqestPost;
 import kr.co.joylog.blog.dto.util.PageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.RequestEntity;
+import org.springframework.web.bind.annotation.*;
 
 import kr.co.joylog.blog.domain.post.PostEntity;
 import kr.co.joylog.blog.domain.post.PostRepository;
@@ -44,6 +45,12 @@ public class PostController {
             @RequestParam(defaultValue = "0", required = false) int seq) {
 
         return postService.getPostDetail(seq);
+    }
+
+    @PostMapping("/post")
+    public void postPost(@RequestBody ReqestPost reqestPost)
+    {
+        postService.postPost(PostEntity.from(reqestPost));
     }
 
 

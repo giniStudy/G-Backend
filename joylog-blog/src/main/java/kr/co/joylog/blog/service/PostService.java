@@ -54,4 +54,10 @@ public class PostService {
 	{
 		return Post.of(postRepository.getById(seq));
 	}
+
+	public PostEntity postPost(PostEntity postEntity)
+	{
+		return postRepository.save(postEntity);
+	}
+
 }
