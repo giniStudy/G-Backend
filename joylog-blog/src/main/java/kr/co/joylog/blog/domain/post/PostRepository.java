@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<PostEntity, Integer> {
     public Page<PostEntity> findAll(Pageable pageable);
-    PostEntity getById(int seq);
+    public PostEntity getById(int seq);
 }
