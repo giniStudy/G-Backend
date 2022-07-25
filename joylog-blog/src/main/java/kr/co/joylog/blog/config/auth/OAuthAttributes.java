@@ -14,6 +14,7 @@ public enum OAuthAttributes {
     GIT("gitub", (map) -> UserProfile.builder()
             .build()),
     GOOGLE("google", (map) -> UserProfile.builder()
+            .email((String)map.get("email"))
             .build())
     ;
 

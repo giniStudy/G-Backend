@@ -15,4 +15,11 @@ public class Token {
         this.token = token;
         this.refreshToken = refreshToken;
     }
+
+    public String toJson() {
+        return "{"
+                + "t\"token\":" + token
+                + ",\"refreshToken\":" + refreshToken
+                + "}";
+    }
 }

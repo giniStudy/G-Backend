@@ -18,7 +18,6 @@ import java.util.Map;
 @Service
 public class OauthService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-
     UserRepository userRepository;
 
     @Override
@@ -35,7 +34,7 @@ public class OauthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
         log.info("oauth registrationId : {}", registrationId);
         log.info("oauth userNameAttributeName : {}", userNameAttributeName);
         Map<String, Object> attributes = oAuth2User.getAttributes();
-
+        log.info("oauth attributes : {}", attributes);
         UserProfile userProfile = OAuthAttributes.extract(registrationId, attributes);
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),

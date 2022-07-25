@@ -21,8 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     OauthService oAuth2UserService;
-    private final OAuth2SuccessHandler successHandler;
-    private final TokenService tokenService;
+    OAuth2SuccessHandler successHandler;
+    TokenService tokenService;
 
     @Bean
     PasswordEncoder passwordEncoder() {
