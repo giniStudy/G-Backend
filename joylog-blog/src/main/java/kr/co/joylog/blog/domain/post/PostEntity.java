@@ -7,6 +7,7 @@ import kr.co.joylog.blog.domain.postTagRelation.PostTagRelationEntity;
 import kr.co.joylog.blog.domain.tag.TagEntity;
 import kr.co.joylog.blog.dto.post.Post;
 import kr.co.joylog.blog.dto.post.ReqestPost;
+import kr.co.joylog.blog.dto.post.ReqestPostAndTagList;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.springframework.data.annotation.CreatedDate;
@@ -28,6 +29,16 @@ import java.util.stream.Collectors;
 @EntityListeners(AuditingEntityListener.class) // create dateTime 문제 해결.
 public class PostEntity {
     public static PostEntity from(ReqestPost reqestPost){
+        LocalDateTime nowDateTime = LocalDateTime.now();
+        return PostEntity.builder()
+                .userSeq(reqestPost.getUserSeq())
+                .title(reqestPost.getTitle())
+                .content(reqestPost.getContent())
+                .state("일반")
+                .level("일반")
+                .build();
+    }
+    public static PostEntity from(ReqestPostAndTagList reqestPost){
         LocalDateTime nowDateTime = LocalDateTime.now();
         return PostEntity.builder()
                 .userSeq(reqestPost.getUserSeq())

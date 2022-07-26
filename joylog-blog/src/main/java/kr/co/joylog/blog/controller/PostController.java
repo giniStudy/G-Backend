@@ -3,10 +3,14 @@ package kr.co.joylog.blog.controller;
 
 import java.util.List;
 
+import kr.co.joylog.blog.domain.postTagRelation.PostTagRelationEntity;
 import kr.co.joylog.blog.domain.tag.TagEntity;
 import kr.co.joylog.blog.dto.post.Post;
 import kr.co.joylog.blog.dto.post.ReqestPost;
+import kr.co.joylog.blog.dto.post.ReqestPostAndTagList;
 import kr.co.joylog.blog.dto.util.PageResponse;
+import kr.co.joylog.blog.service.PostTagRelationService;
+import kr.co.joylog.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +24,12 @@ public class PostController {
 
     @Autowired
     PostService postService;
+
+    @Autowired
+    TagService tagService;
+
+    @Autowired
+    PostTagRelationService postTagRelationService;
 
     /*
     @GetMapping("")
@@ -53,5 +63,17 @@ public class PostController {
         postService.postPost(PostEntity.from(reqestPost));
     }
 
+    @PostMapping("postandtag")
+    public void postPostAndTag(@RequestBody ReqestPostAndTagList reqestPostAndTagList)
+    {
+        PostEntity postEntity = postService.postPost(PostEntity.from(reqestPostAndTagList));
+        List<TagEntity> tagEntityList = tagService.postTagList(reqestPostAndTagList.getTag());
+        List<TagEntity> saveTagEntityList = tagService.getTagList(reqestPostAndTagList.getTag());
+
+        List<PostTagRelationEntity> postTagRelationEntityList = PostTagRelationEntity.from(postEntity.getSeq(), saveTagEntityList);
+
+        postTagRelationService.postPostTagRelation(postTagRelationEntityList);
+
+    }
 
 }
