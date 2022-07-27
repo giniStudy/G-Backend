@@ -1,5 +1,9 @@
-package kr.co.joylog.blog.config.auth;
+package kr.co.joylog.blog.config;
 
+import kr.co.joylog.blog.config.auth.JwtAuthFilter;
+import kr.co.joylog.blog.config.auth.OAuth2SuccessHandler;
+import kr.co.joylog.blog.config.auth.OauthCustomUserService;
+import kr.co.joylog.blog.config.auth.TokenService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -10,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -20,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SecurityConfig {
 
-    OauthService oAuth2UserService;
+    OauthCustomUserService oauthCustomUserService;
     OAuth2SuccessHandler successHandler;
     TokenService tokenService;
 
@@ -39,11 +42,9 @@ public class SecurityConfig {
                 .antMatchers("/token/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-//                .addFilterBefore(new JwtExceptionFilter(),
-//                        OAuth2LoginAuthenticationFilter.class)
                 .oauth2Login()
                 .successHandler(successHandler)
-                .userInfoEndpoint().userService(oAuth2UserService);
+                .userInfoEndpoint().userService(oauthCustomUserService);
         http.addFilterBefore(new JwtAuthFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

@@ -15,6 +15,9 @@ public enum OAuthAttributes {
             .build()),
     GOOGLE("google", (map) -> UserProfile.builder()
             .email((String)map.get("email"))
+            .id((String)map.get("sub"))
+            .loginType("google")
+            .name((String)map.get("given_name"))
             .build())
     ;
 

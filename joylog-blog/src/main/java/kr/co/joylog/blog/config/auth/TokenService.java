@@ -1,35 +1,52 @@
 package kr.co.joylog.blog.config.auth;
 
+import com.google.gson.Gson;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import kr.co.joylog.blog.dto.user.UserDefaultInfo;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.Base64;
+import java.security.Key;
 import java.util.Date;
 
 @Service
 public class TokenService {
-    private String secretKey = "token-secret-key";
+    private String secretKey = "token-secret-keyasjoylogkeyasjoylogkeyasjoylogkeyasjoylogkeyasjoylogkeyasjoylog!Q(@(#!";
+    private long tokenPeriod = 1000L * 60L * 10L;
+    private long refreshPeriod = 1000L * 60L * 60L * 24L * 30L;
+    Gson gson = new Gson();
 
-    @PostConstruct
-    protected void init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+
+    public Token generateToken(UserDefaultInfo userDefaultInfo) {
+        return new Token(
+                createAccessToken(userDefaultInfo),
+                createRefreshToken(userDefaultInfo));
     }
 
-
-    public Token generateToken(String uid, String role) {
-        long tokenPeriod = 1000L * 60L * 10L;
-        long refreshPeriod = 1000L * 60L * 60L * 24L * 30L * 3L;
-
-        Claims claims = Jwts.claims().setSubject(uid);
-        claims.put("role", role);
-
+    private String createAccessToken(UserDefaultInfo userDefaultInfo) {
+        Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
         Date now = new Date();
-        return new Token(
-                "accesstoken",
-                "refreshToken");
+        Date expireDate = new Date(now.getTime() + tokenPeriod);
+        return Jwts.builder()
+                .addClaims(userDefaultInfo.toMap())
+                .setIssuedAt(now)
+                .setExpiration(expireDate)
+                .signWith(key)
+                .compact();
+    }
+
+    private String createRefreshToken(UserDefaultInfo userDefaultInfo) {
+        Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
+        Date now = new Date();
+        Date expireDate = new Date(now.getTime() + refreshPeriod);
+        return Jwts.builder()
+                .setSubject(gson.toJson(userDefaultInfo))
+                .setIssuedAt(now)
+                .setExpiration(expireDate)
+                .signWith(key)
+                .compact();
     }
 
 

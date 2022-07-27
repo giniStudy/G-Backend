@@ -2,6 +2,7 @@ package kr.co.joylog.blog.domain.user;
 
 import javax.persistence.*;
 
+import kr.co.joylog.blog.config.auth.UserProfile;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,8 +15,8 @@ import java.time.LocalDateTime;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
-@Builder
-@AllArgsConstructor
+@Builder(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,8 @@ public class UserEntity {
     private String nickName;
     private String email;
     private String phon;
-    private String level;
+    @Enumerated(EnumType.STRING)
+    private AdminRoleType level;
     private String repository;
     private String loginState;
     private String githubName;
@@ -35,4 +37,15 @@ public class UserEntity {
 
     @CreatedDate
     private LocalDateTime createDatetime;
+
+    public static UserEntity createUser(UserProfile userProfile) {
+        return UserEntity.builder()
+                .id(userProfile.getId())
+                .email(userProfile.getEmail())
+                .pw("lsadflksdajf")
+                .name(userProfile.getName())
+                .loginState(userProfile.getLoginType())
+                .level(AdminRoleType.DEFAULT)
+                .build();
+    }
 }

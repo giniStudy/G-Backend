@@ -14,17 +14,10 @@ import java.util.Map;
 @AllArgsConstructor
 public class UserProfile {
     int seq;
+    String loginType;
     String id;
     String name;
     String email;
-
-    public UserEntity toUserEntity() {
-        return UserEntity.builder()
-                .id(id)
-                .name(name)
-                .email(email)
-                .build();
-    }
 
     public static UserProfile from(UserEntity userEntity) {
         return UserProfile.builder()
@@ -40,8 +33,18 @@ public class UserProfile {
         Map<String, Object> map = new HashMap<>();
         map.put("seq", seq);
         map.put("id", id);
+        map.put("loginType", loginType);
         map.put("name", name);
         map.put("email", email);
         return map;
+    }
+
+    public static UserProfile from(Map<String, Object> map) {
+        return UserProfile.builder()
+                .id((String)map.get("id"))
+                .name((String)map.get("name"))
+                .email((String)map.get("email"))
+                .loginType((String)map.get("loginType"))
+                .build();
     }
 }
