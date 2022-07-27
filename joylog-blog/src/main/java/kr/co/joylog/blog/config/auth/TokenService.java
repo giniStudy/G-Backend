@@ -3,14 +3,17 @@ package kr.co.joylog.blog.config.auth;
 import com.google.gson.Gson;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import kr.co.joylog.blog.dto.user.UserDefaultInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
 
+@Slf4j
 @Service
 public class TokenService {
     private String secretKey = "token-secret-keyasjoylogkeyasjoylogkeyasjoylogkeyasjoylogkeyasjoylogkeyasjoylog!Q(@(#!";
@@ -31,6 +34,7 @@ public class TokenService {
         Date expireDate = new Date(now.getTime() + tokenPeriod);
         return Jwts.builder()
                 .addClaims(userDefaultInfo.toMap())
+                .setAudience(userDefaultInfo.getEmail())
                 .setIssuedAt(now)
                 .setExpiration(expireDate)
                 .signWith(key)
@@ -52,12 +56,11 @@ public class TokenService {
 
     public boolean verifyToken(String token) {
         try {
-            Jws<Claims> claims = Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .parseClaimsJws(token);
-            return claims.getBody()
-                    .getExpiration()
-                    .after(new Date());
+            Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
+            JwtParser parser = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build();
+            return parser.isSigned(token);
         } catch (Exception e) {
             return false;
         }
@@ -65,6 +68,12 @@ public class TokenService {
 
 
     public String getUid(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+        Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
+        JwtParser parser = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                ;
+        log.info("body: {}",parser.parseClaimsJws(token).getBody() );
+        return null; // TODO 파싱후 결과 리턴
     }
 }

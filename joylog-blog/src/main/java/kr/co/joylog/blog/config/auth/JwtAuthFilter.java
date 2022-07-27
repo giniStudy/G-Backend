@@ -1,6 +1,7 @@
 package kr.co.joylog.blog.config.auth;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Arrays;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class JwtAuthFilter extends GenericFilterBean {
@@ -24,14 +26,14 @@ public class JwtAuthFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = ((HttpServletRequest)request).getHeader("Auth");
-
+        String token = ((HttpServletRequest)request).getHeader("Auth-Token");
+        log.info("token info : {}", token);
         if (token != null && tokenService.verifyToken(token)) {
-            String email = tokenService.getUid(token);
+            log.info("token_body: :{}", tokenService.getUid(token));
 
             // DB연동을 안했으니 이메일 정보로 유저를 만들어주겠습니다
             UserDto userDto = UserDto.builder()
-                    .email(email)
+                    .email("test")
                     .name("이름이에용")
                     .picture("프로필 이미지에요").build();
 
