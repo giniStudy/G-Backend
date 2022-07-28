@@ -4,6 +4,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -14,4 +20,10 @@ public enum AdminRoleType {
 
     String description;
     String[] adminRole;
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.stream(adminRole)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
 }

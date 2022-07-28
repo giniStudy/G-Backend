@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Builder(access = AccessLevel.PRIVATE)
+@Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
