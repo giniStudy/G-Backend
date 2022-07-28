@@ -70,7 +70,7 @@ public class PostController {
         List<TagEntity> tagEntityList = tagService.postTagList(reqestPostAndTagList.getTag());
         List<TagEntity> saveTagEntityList = tagService.getTagList(reqestPostAndTagList.getTag());
 
-        List<PostTagRelationEntity> postTagRelationEntityList = PostTagRelationEntity.from(postEntity.getSeq(), saveTagEntityList);
+        List<PostTagRelationEntity> postTagRelationEntityList = PostTagRelationEntity.from(postEntity, saveTagEntityList);
 
         postTagRelationService.postPostTagRelation(postTagRelationEntityList);
 

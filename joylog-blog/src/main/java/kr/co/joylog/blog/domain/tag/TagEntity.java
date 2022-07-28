@@ -17,8 +17,8 @@ public class TagEntity {
         return TagEntity.builder()
                 .tag(reqestTag.getTag())
                 .build();
-
     }
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

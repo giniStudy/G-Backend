@@ -21,20 +21,25 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostTagRelationEntity {
-    public static List<PostTagRelationEntity> from(Integer pPost, List<TagEntity> pTag){
+    public static List<PostTagRelationEntity> from(PostEntity pPost, List<TagEntity> pTag){
         List<PostTagRelationEntity> postTagRelationEntityList = new ArrayList<PostTagRelationEntity>();
 
         for(int i = 0; i < pTag.size(); i++)
         {
-            PostTagRelationEntity postTagRelationEntity = new PostTagRelationEntity();
-            postTagRelationEntity.setPost(PostEntity.builder().seq(pPost).build());
-            postTagRelationEntity.setTag(TagEntity.builder().seq(pTag.get(i).getSeq()).build());
-            postTagRelationEntityList.add(postTagRelationEntity);
+            postTagRelationEntityList.add(PostTagRelationEntity.from(pPost, pTag.get(i)));
          }
 
         return postTagRelationEntityList;
     }
-
+    
+    public static PostTagRelationEntity from(PostEntity pPost, TagEntity pTag){
+        return PostTagRelationEntity
+        		.builder()
+        		.post(pPost)
+        		.tag(pTag)
+        		.build();
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer seq;
