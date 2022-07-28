@@ -11,6 +11,7 @@ import java.util.Map;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder(access = AccessLevel.PRIVATE)
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDefaultInfo {

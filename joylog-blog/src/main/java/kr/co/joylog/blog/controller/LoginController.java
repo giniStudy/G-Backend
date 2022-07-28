@@ -13,8 +13,10 @@ public class LoginController {
 
     @GetMapping("/token")
     public Token loginTokenProvider(HttpSession session) {
-        session.getAttribute("token");
+        ;
+        log.debug("token: {}", session.getAttribute("token"));
         Token token = (Token) session.getAttribute("token");
+        log.debug("token: {}", token);
         session.invalidate();
         return token;
     }

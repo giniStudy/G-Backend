@@ -29,7 +29,8 @@ public class JwtAuthFilter extends GenericFilterBean {
         String token = ((HttpServletRequest)request).getHeader("Auth-Token");
         log.info("token info : {}", token);
         if (token != null && tokenService.verifyToken(token)) {
-            log.info("token_body: :{}", tokenService.getUid(token));
+            log.info("token_body: :{}", tokenService.getBody(token));
+
 
             // DB연동을 안했으니 이메일 정보로 유저를 만들어주겠습니다
             UserDto userDto = UserDto.builder()
@@ -39,8 +40,11 @@ public class JwtAuthFilter extends GenericFilterBean {
 
             Authentication auth = getAuthentication(userDto);
             SecurityContextHolder.getContext().setAuthentication(auth);
+        } else if(token != null) {
+//            response.
+            // throw error page render
+            return ;
         }
-
         chain.doFilter(request, response);
     }
 

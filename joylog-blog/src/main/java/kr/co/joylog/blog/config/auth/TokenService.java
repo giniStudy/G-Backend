@@ -67,13 +67,12 @@ public class TokenService {
     }
 
 
-    public String getUid(String token) {
+    public String getBody(String token) {
         Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
         JwtParser parser = Jwts.parserBuilder()
                 .setSigningKey(key)
-                .build()
-                ;
-        log.info("body: {}",parser.parseClaimsJws(token).getBody() );
+                .build();
+        log.info("body: {}", parser.parseClaimsJws(token).getBody() );
         return null; // TODO 파싱후 결과 리턴
     }
 }
