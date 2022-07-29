@@ -2,6 +2,7 @@ package kr.co.joylog.blog.controller;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import kr.co.joylog.blog.domain.postTagRelation.PostTagRelationEntity;
 import kr.co.joylog.blog.domain.tag.TagEntity;
@@ -31,18 +32,6 @@ public class PostController {
     @Autowired
     PostTagRelationService postTagRelationService;
 
-    /*
-    @GetMapping("")
-    public PostEntity test() {
-        return postService.createPost("test!!!");
-    }
-    */
-    @GetMapping("/all")
-    public List<PostEntity> findAll() {
-        return postService.findAll();
-    }
-
-
     @GetMapping("/post")
     public PageResponse<Post> getPostList(
             @RequestParam(defaultValue = "0", required = false) int page,
@@ -58,22 +47,34 @@ public class PostController {
     }
 
     @PostMapping("/post")
+    public void postPostAndTag(@RequestBody ReqestPostAndTagList reqestPostAndTagList)
+    {
+    	// create post, tag ( tag 중복 제거 )
+        PostEntity postEntity = postService.postPost(PostEntity.from(reqestPostAndTagList));
+        List<TagEntity> tagEntityList = tagService.postTagList(reqestPostAndTagList.getTag().stream().distinct().collect(Collectors.toList()));
+
+        // select tag list ( tag 중복 제거 )
+        List<TagEntity> saveTagEntityList = tagService.getTagList(reqestPostAndTagList.getTag().stream().distinct().collect(Collectors.toList()));
+        
+        // create posttagrelation
+        postTagRelationService.postPostTagRelation(PostTagRelationEntity.from(postEntity,saveTagEntityList));
+    }
+    
+    /*
+    @GetMapping("")
+    public PostEntity test() {
+        return postService.createPost("test!!!");
+    }
+
+    @GetMapping("/all")
+    public List<PostEntity> findAll() {
+        return postService.findAll();
+    }
+    
+    @PostMapping("/post")
     public void postPost(@RequestBody ReqestPost reqestPost)
     {
         postService.postPost(PostEntity.from(reqestPost));
     }
-
-    @PostMapping("postandtag")
-    public void postPostAndTag(@RequestBody ReqestPostAndTagList reqestPostAndTagList)
-    {
-        PostEntity postEntity = postService.postPost(PostEntity.from(reqestPostAndTagList));
-        List<TagEntity> tagEntityList = tagService.postTagList(reqestPostAndTagList.getTag());
-        List<TagEntity> saveTagEntityList = tagService.getTagList(reqestPostAndTagList.getTag());
-
-        List<PostTagRelationEntity> postTagRelationEntityList = PostTagRelationEntity.from(postEntity, saveTagEntityList);
-
-        postTagRelationService.postPostTagRelation(postTagRelationEntityList);
-
-    }
-
+    */
 }

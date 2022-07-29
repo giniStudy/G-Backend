@@ -1,5 +1,6 @@
 package kr.co.joylog.blog.service;
 
+import kr.co.joylog.blog.domain.post.PostEntity;
 import kr.co.joylog.blog.domain.postTagRelation.PostTagRelationEntity;
 import kr.co.joylog.blog.domain.postTagRelation.PostTagRelationRepository;
 import kr.co.joylog.blog.domain.tag.TagEntity;
@@ -24,5 +25,10 @@ public class PostTagRelationService {
     public List<PostTagRelationEntity> postPostTagRelation(List<PostTagRelationEntity> postTagRelationEntityList)
     {
         return postTagRelationRepository.saveAll(postTagRelationEntityList);
+    }
+    
+    public List<PostTagRelationEntity> getPostTagRelationEntityList(PostEntity post)
+    {
+    	return postTagRelationRepository.findAllByPost(post);
     }
 }

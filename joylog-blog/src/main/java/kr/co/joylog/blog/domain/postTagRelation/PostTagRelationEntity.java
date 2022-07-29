@@ -21,13 +21,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostTagRelationEntity {
-    public static List<PostTagRelationEntity> from(PostEntity pPost, List<TagEntity> pTag){
+    public static List<PostTagRelationEntity> from(PostEntity pPost, List<TagEntity> pTagList){
         List<PostTagRelationEntity> postTagRelationEntityList = new ArrayList<PostTagRelationEntity>();
 
-        for(int i = 0; i < pTag.size(); i++)
-        {
-            postTagRelationEntityList.add(PostTagRelationEntity.from(pPost, pTag.get(i)));
-         }
+        for(TagEntity pTag : pTagList)
+            postTagRelationEntityList.add(PostTagRelationEntity.from(pPost, pTag));         
 
         return postTagRelationEntityList;
     }
