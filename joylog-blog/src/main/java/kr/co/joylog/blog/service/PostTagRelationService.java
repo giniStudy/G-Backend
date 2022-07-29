@@ -31,4 +31,9 @@ public class PostTagRelationService {
     {
     	return postTagRelationRepository.findAllByPost(post);
     }
+    
+    public List<PostTagRelationEntity> getAllPostTagRelationEntityList()
+    {
+    	return postTagRelationRepository.findAll();
+    }
 }
