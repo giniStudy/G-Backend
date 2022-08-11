@@ -9,6 +9,9 @@ public class LoginUtil {
 
     public static UserDefaultInfo getLoginUser() {
         log.info("login User : {}", SecurityContextHolder.getContext().getAuthentication());
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            return null;
+        }
         return (UserDefaultInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
