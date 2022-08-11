@@ -8,6 +8,9 @@ import kr.co.joylog.blog.dto.post.Post;
 import kr.co.joylog.blog.dto.post.ReqestPost;
 import kr.co.joylog.blog.dto.util.PageResponse;
 import kr.co.joylog.blog.service.LoginUtil;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
@@ -18,18 +21,12 @@ import kr.co.joylog.blog.domain.post.PostRepository;
 import kr.co.joylog.blog.service.PostService;
 
 @Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
 @RestController
 public class PostController {
-
-    @Autowired
     PostService postService;
 
-    /*
-    @GetMapping("")
-    public PostEntity test() {
-        return postService.createPost("test!!!");
-    }
-    */
     @GetMapping("/all")
     public List<PostEntity> findAll() {
         return postService.findAll();
