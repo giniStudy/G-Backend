@@ -23,7 +23,7 @@ public class PostController {
 
     @Autowired
     PostService postService;
-ㅈ
+
     /*
     @GetMapping("")
     public PostEntity test() {
