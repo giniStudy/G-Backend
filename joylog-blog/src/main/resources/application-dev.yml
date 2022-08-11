@@ -7,6 +7,16 @@ spring:
     username: ${username}
     password: ${password}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${google_id}
+            client-secret: ${google_secret}
+            scope:
+              - profile
+              - email
 
 server:
   port: 80
