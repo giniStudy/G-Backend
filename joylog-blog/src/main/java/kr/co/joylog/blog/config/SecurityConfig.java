@@ -46,12 +46,15 @@ public class SecurityConfig {
                         "/configuration/security",
                         "/swagger-ui.html",
                         "/webjars/**",
+                        "/post",
                         /* swagger v3 */
                         "/v3/api-docs/**",
                         "/swagger-ui/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login()
+                .loginPage("/token/expire")
+                .failureUrl("/login/error")
                 .successHandler(successHandler)
                 .userInfoEndpoint().userService(oauthCustomUserService);
         http.addFilterBefore(new JwtAuthFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
