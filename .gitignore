@@ -45,3 +45,4 @@ out/
 application-stage.yml
 application-google.yml
 /.metadata/
+.DS_Store
