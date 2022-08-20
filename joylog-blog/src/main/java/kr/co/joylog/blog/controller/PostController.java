@@ -55,5 +55,8 @@ public class PostController {
         postService.postPost(PostEntity.from(reqestPost));
     }
 
-
+    @GetMapping("/post/create")
+    public String test() {
+        return "create!";
+    }
 }

@@ -72,6 +72,8 @@ public class TokenService {
 
 
     public UserDefaultInfo getBody(String token) {
+
+        log.info("body token : {}", token );
         Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
         JwtParser parser = Jwts.parserBuilder()
                 .setSigningKey(key)

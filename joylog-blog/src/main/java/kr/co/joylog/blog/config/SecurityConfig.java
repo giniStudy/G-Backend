@@ -38,22 +38,24 @@ public class SecurityConfig {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
-                .antMatchers("/token/**", "/v2/api-docs",
-                        "/swagger-resources",
-                        "/swagger-resources/**",
-                        "/configuration/ui",
-                        "/configuration/security",
-                        "/swagger-ui.html",
-                        "/webjars/**",
-                        "/post",
-                        /* swagger v3 */
-                        "/v3/api-docs/**",
-                        "/swagger-ui/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
+                    .authorizeRequests()
+                        .antMatchers("/token/**", "/v2/api-docs",
+                                "/swagger-resources",
+                                "/swagger-resources/**",
+                                "/configuration/ui",
+                                "/configuration/security",
+                                "/swagger-ui.html",
+                                "/webjars/**",
+                                "/post",
+                                /* swagger v3 */
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**").permitAll()
+                        .antMatchers("/post/create")
+                            .hasRole("WRITE")
+                        .anyRequest().authenticated()
+                    .and()
                 .oauth2Login()
-                .loginPage("/token/expire")
+                .loginPage("/token/empty")
                 .failureUrl("/login/error")
                 .successHandler(successHandler)
                 .userInfoEndpoint().userService(oauthCustomUserService);

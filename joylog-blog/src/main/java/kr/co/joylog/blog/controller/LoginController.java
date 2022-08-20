@@ -24,10 +24,22 @@ public class LoginController {
         return token;
     }
 
-    @GetMapping("/token/expire")
-    public ResponseEntity<?> loginTokenProvider() {
+    @GetMapping("/token/empty")
+    public ResponseEntity<?> loginTokenNotFound() {
         Map<String, String> map = new HashMap<>();
-        map.put("error", "not_found_token");
-        return new ResponseEntity(map, HttpStatus.UNAUTHORIZED);
+        map.put("error", "Not found token");
+        map.put("token", "Token is required");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(map);
+    }
+
+    @GetMapping("/token/error")
+    public ResponseEntity<?> loginTokenError() {
+        Map<String, String> map = new HashMap<>();
+        map.put("error", "not found token");
+        map.put("token", "token is invalid");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(map);
+
     }
 }

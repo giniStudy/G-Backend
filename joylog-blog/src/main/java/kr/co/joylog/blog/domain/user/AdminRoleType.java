@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public enum AdminRoleType {
     DEFAULT("기본 권한", new String[]{"ROLE_USER"}),
-    WRITER("관리자 권한", new String[]{"ROLE_USER, ROLE_WRITE_USER"});
+    WRITER("관리자 권한", new String[]{"ROLE_USER, ROLE_WRITE"});
 
     String description;
     String[] adminRole;

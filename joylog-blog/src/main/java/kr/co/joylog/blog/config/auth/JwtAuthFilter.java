@@ -15,6 +15,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,21 +26,21 @@ public class JwtAuthFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = ((HttpServletRequest)request).getHeader("Auth-Token");
-        log.info("token info : {}", token);
-        if (token != null && tokenService.verifyToken(token)) {
-            UserDefaultInfo userDefaultInfo = tokenService.getBody(token);
-            SecurityContextHolder.getContext().setAuthentication(getAuthentication(userDefaultInfo));
-            log.info("authtication : {}", token);
-        } else if(token != null) {
-            // TODO 토큰 만료 처리
+        String token = ((HttpServletRequest)request).getHeader("Authorization");
 
-            return ;
-        }
+        log.info("token info : {}", token);
+        Optional.ofNullable(token)
+                .map(t -> t.substring(7))
+                .filter(tokenService::verifyToken)
+                .ifPresent( t -> {
+                    UserDefaultInfo userDefaultInfo = tokenService.getBody(t);
+                    SecurityContextHolder.getContext().setAuthentication(getAuthentication(userDefaultInfo));
+                });
         chain.doFilter(request, response);
     }
 
     public Authentication getAuthentication(UserDefaultInfo user) {
+        log.debug("user authrities : {}", user.getRole().getAuthorities());
         return new UsernamePasswordAuthenticationToken(user, "",
                 user.getRole().getAuthorities());
     }
